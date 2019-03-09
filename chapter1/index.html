@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vue.js App</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in items" v-bind:key="item.name">
+        {{ item.name }}の個数：<input type="number" v-model="item.quantity" min="0">
+      </li>
+    </ul>
+    <div :style="errorMessageStyle">
+      <ul>
+        <li v-for="item in items" v-bind:key="item.name">
+          {{ item.name }}：{{ item.price }} x {{ item.quantity }} = {{ item.price * item.quantity | numberWithDelimiter }}円
+        </li>
+      </ul>
+      <p>{{ items[0].name }}: {{ items[0].price }} x {{ items[0].quantity }}</p>
+      <p>小計：{{ totalPrice | numberWithDelimiter }}円</p>
+      <p>合計：{{ totalPriceWithTax | numberWithDelimiter }}円</p>
+      <p v-show="!canBuy">
+        {{ 1000 | numberWithDelimiter }}以上からご購入いただけます。
+      </p>
+      <!-- 絞り込みラジオボタン -->
+      <!-- ToDo テーブル -->
+      <!-- 新規登録フォーム -->
+      <button v-bind:disabled="!canBuy" v-on:click="doBuy">購入</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/vue@2.5.17"></script>
+  <script src="main.js"></script>
+</body>
+</html>
